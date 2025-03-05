@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="widht=device-widht, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="Style.css">
+    <title>Gioco Snake</title>
+</head>
+
+<body>
+   
+    <!-- Botón "Jugar" al inicio -->
+    <div class="container">
+        <h1>Snake</h1>
+        <br></br>
+        <a class="btn-a" id="startButton">Giocare</a>
+    </div>
+
+    <!-- Contenedor del juego (oculto al inicio) -->
+    <div class="wrapper" id="gameContainer">
+        <div class="game-details">
+            <span class="score">Puntatura: 0</span>
+            <span class="high-score">Punteggio alto: 0</span>
+        </div>
+
+        <div class="play-board"></div>
+        <div class="controls">
+            <i data-key="ArrowUp" class="fa-solid fa-arrow-up-long"></i>
+            <i data-key="ArrowDown" class="fa-solid fa-arrow-down-long"></i>
+            <i data-key="ArrowRight" class="fa-solid fa-arrow-right-long"></i>
+            <i data-key="ArrowLeft" class="fa-solid fa-arrow-left-long"></i>
+        </div>
+    </div>
+
+    <script src="snake.js"></script>
+
+    <audio id="audio1">
+        <source src="cancion.mp3" type="audio/mpeg"/>
+        <source src="cancion.ogg" type="audio/ogg"/>
+        <source src="cancion.wav" type="audio/wav"/>
+        No es compatible
+    </audio>
+
+    <video class="video-background" autoplay muted loop>
+        <source src="fondo.mp4" type="video/mp4">
+    </video>
+
+    <div id="gameOverModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>¡Game Over!</h2>
+            <p>Tu Puntatura: <span id="finalScore">0</span></p>
+            <button id="restartButton">Riavviare</button>
+        </div>
+    </div>
+
+</body>
+</html>

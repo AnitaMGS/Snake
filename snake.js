@@ -15,11 +15,21 @@ let velocityX = 0, velocityY = 0;
 let snakeBody = [];
 let setIntervalId;
 let score = 0;
+let snakeColor = "#d053db"; // Color inicial de la serpiente
 
 //obtener puntuación alta (local storage)
 
 let highScore = localStorage.getItem("high-score") || 0;
 highScoreElement.innerText = `Punteggio alto: ${highScore}`;
+
+const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
 
 //pasar un aleatorio entre 1 y 30 como posición de comida
 
@@ -107,6 +117,7 @@ const initGame = () => {
         localStorage.setItem("high-score", highScore);
         scoreElement.innerText = `Puntatura: ${score}`;
         highScoreElement.innerText =`Punteggio alto: ${highScore}`;
+        snakeColor = getRandomColor(); // Cambia el color de la serpiente
     }
 
     //actualizar cabeza de serpiente
@@ -114,7 +125,7 @@ const initGame = () => {
     snakeX += velocityX;
     snakeY += velocityY;
 
-    //desplazar hacia adelante los valores de los elementos en el cuerpo de la serpiente en uno
+    //Desplazar hacia adelante los valores de los elementos en el cuerpo de la serpiente en uno
 
     for(let i = snakeBody.length - 1; i > 0; i--){
         snakeBody[i] = snakeBody[i - 1];
@@ -128,7 +139,17 @@ const initGame = () => {
         return gameOver = true;
     }
 
-    //agrega div for each parte del cuerpo de la serpiente
+    //Dibujar la serpiente con el color actual
+    for (let i = 0; i < snakeBody.length; i++) {
+        html += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}; background-color: ${snakeColor};"></div>`;
+        
+        // Verificar si la cabeza colisiona con el cuerpo
+        if (i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]) {
+            gameOver = true;
+        }
+    }
+
+    /*//agrega div for each parte del cuerpo de la serpiente
 
     for(let i = 0; i < snakeBody.length; i++){
         html += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
@@ -138,7 +159,7 @@ const initGame = () => {
         if(i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]){
             gameOver = true;
         }
-    }
+    }*/
 
     playBoard.innerHTML = html;
 }
